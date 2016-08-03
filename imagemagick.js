@@ -153,7 +153,11 @@ exports.identify = function(pathOrArgs, callback) {
         result = stdout;
       } else {
         result = parseIdentify(stdout);
-        geometry = result['geometry'].split(/x/);
+        if(result['geometry']) {
+          geometry = result['geometry'].split(/x/);
+          result.width = parseInt(geometry[0]);
+          result.height = parseInt(geometry[1]);
+        }
 
         result.format = result.format.match(/\S*/)[0]
         result.width = parseInt(geometry[0]);
